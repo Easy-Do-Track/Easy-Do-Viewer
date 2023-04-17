@@ -102,13 +102,15 @@ const closeModalEvent = () =>{
   console.log('sss')
 }
 
-const Profiles = () =>{
+const Profiles = (props) =>{
   
   // window.localStorage.clear()
   
   const keys = Object.keys(window.localStorage)
+  const [dname, delname] = useState('')
   const [names,setNames] = useState(keys)
-  
+  //const [v,delname] = useState('')
+
   const addName = (name) =>{
     setNames([...names,name])
   }
@@ -117,11 +119,28 @@ const Profiles = () =>{
     console.log("sss")
   }
 
+  const deleteJson = (idx,name) => {
+    const temp = [...names]
+    window.localStorage.removeItem(name);
+    
+    temp.splice(idx, 1)
+    setNames(temp)
+    
+
+  };
+
+
+
   const profiles = names.map(
-    (v) => (
+    (v,i) => (
+      <div>
     <Link to ='/Device' key={v} state ={{name:v}} style={{ textDecoration: "none" }}>
       <Profile  addName = {addName} name ={v}></Profile>
     </Link>
+    <button className="closebutton"  state ={{name:v}} onClick={()=> {deleteJson(i,v)}}>
+      X
+    </button></div>
+    
     )
   )
   
@@ -146,15 +165,11 @@ const Profile = (props) =>{
   const [hide, setHide] = useState(true);
   //const [closebtn, setbtn] = useState(false);
   const [btnX, setbtnX] = useState(false);
-  const [name, delname] = useState('');
   const showModal = () => {
     setModalOpen(true);
   };
   
 
-    const deleteJson = (name) => {
-      window.localStorage.removeItem(name);
-    };
 
     
     return(
@@ -162,12 +177,9 @@ const Profile = (props) =>{
         <div className='profile' onClick={()=>showModal()} onMouseEnter={()=> setHide(false)} >{
           props.name === "empty" 
           ?  <h3 className="plusicon">+</h3>
-          :  <h3 className='profiletitle'>{props.name}</h3>
+          :  <h3 className='profiletitle' >{props.name}</h3>
         }      
         </div>
-        <button className="closebutton" onClick={()=> {deleteJson(name)}}>
-          X
-        </button>
         {
           props.name === "empty" ? modalOpen && <AddUser addName = {props.addName} ssetModalOpen={setModalOpen}/> : null
         }
@@ -201,6 +213,9 @@ const ProfileChoice = () =>{
 
   //확인용 data들 
   //check saveJson method 사용법
+  
+
+  /*
   const list = [20,20,20,20,20,44,20]
   const addresslist = ['aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa']
   
@@ -214,6 +229,7 @@ const ProfileChoice = () =>{
   if(window.localStorage.getItem('treeset')===null){
     saveJson("treeset",'0','0')
   }
+  */
 
   return(
     <React.Fragment>
