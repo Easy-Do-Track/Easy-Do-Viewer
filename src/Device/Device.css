@@ -1,0 +1,67 @@
+#bar>#title{
+    text-align: center;
+}
+
+.connectcolor{
+    background-color: red;
+}
+
+
+#settingcontainer{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-evenly; */
+    justify-content: center;
+    margin : 5%;
+}
+
+.physicaladdress > *{
+    margin: 5px;
+}
+
+.physicaladdress:hover{
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.physicaladdress>span{
+    float: left;
+}
+
+.physicaladdress>input{
+    float: left;
+}
+
+.physicaladdress::after{
+    display: table;
+    content: "";
+    clear: both;
+}
+
+#deletebutton{
+    float: right;
+}
+.physicaladdress{
+    text-align: left;
+}
+
+/* .addresscontainer::after{
+    content: "";
+    clear: both;
+    display: table;
+} */
+
+.physicaladdress{
+    border: solid gray 1px;
+    border-radius: 5px;
+    margin: 10px;
+    padding : 15px 5px;}
+
+
+#crudcontainer{
+    margin : 10px; 
+    text-align: center;
+}
+
+#crudcontainer > button{
+    margin : 10px;
+}

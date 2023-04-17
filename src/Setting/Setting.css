@@ -1,0 +1,62 @@
+#title{
+    text-align: center;
+}
+
+#imagecontainer{
+    margin: 10px;
+}
+
+#settingformcontainer{
+    display: flex;
+    flex-direction: column;
+}
+
+#settingformcontainer>.settingform{
+    border-radius: 5px;
+    background-color: gray;
+    color: black;
+    margin: 5px;
+    text-align: center;
+    
+}
+
+#settingformcontainer>.settingform:hover{
+    background-color : rgba(0, 0, 0, 0.2);
+}
+
+.settingform{
+    text-align: center;
+    padding: 10px 10px;
+}
+
+.settingform::after{
+    display: table;
+    content: "";
+    clear: both;
+}
+
+.settingform>form>.label{
+    float: left;
+}
+.settingform>form>input{
+    float: right;
+    margin: 5px;
+}
+
+.settingform>form>.cm{
+    float: right;
+}
+
+#settingbutton{
+    text-align: center;
+}
+
+#settingbutton>button{
+    display: inline-block;
+}
+
+#selfsettingcontainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

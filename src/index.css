@@ -1,0 +1,53 @@
+
+#entire{
+  margin: 20px;
+}
+#entire>#bar>#profilechoice{
+  text-align: center;
+  color: black;
+}
+
+#entire>.profiles{
+  display: flex;  
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 50px;
+}
+
+#phrase{
+  text-align: center;
+}
+
+#profiles{
+  margin: 100px;
+}
+
+.profile{
+  
+  width: 200px; 
+  height: 200px; 
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.profile:hover{
+  background-color: rgba(0,0,0,0.8  );
+
+}
+
+.profile > a{
+  text-decoration: none;
+}
+
+.profile > .plusicon >span{
+  color: white;
+  margin: 0;
+}
+
+.profiletitle{
+  text-align: center;
+  color: white;
+}

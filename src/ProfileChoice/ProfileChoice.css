@@ -1,0 +1,68 @@
+
+#root{
+  margin: 20px;
+}
+#root>#bar>#profilechoice{
+  text-align: center;
+  color: black;
+}
+
+.profiles{
+  display: flex;  
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 50px;
+}
+
+#phrase{
+  text-align: center;
+}
+
+#profiles{
+  margin: 100px;
+}
+
+.profile{
+  
+  width: 200px; 
+  height: 200px; 
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: black;
+  user-select: none;
+}
+
+.profile:hover{
+  background-color: rgba(0,0,0,0.8  );
+  cursor: pointer;
+}
+
+.profile > a{
+  text-decoration: none;
+}
+
+.plusicon{
+  color: white;
+  margin: 0;
+  font-size : 50px;
+}
+
+
+
+.profiletitle{
+  text-align: center;
+  color: white;
+}
+
+.closebutton {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 220x;
+
+  cursor: pointer;
+
+}

@@ -1,0 +1,9 @@
+{
+    "wrist-shoulder" : "1",
+    "shoulder-length" : "2",
+    "chest-pelvis" : "3",
+    "pelvis-length" : "4",
+    "pelvis-thigh" : "5",
+    "thigh-ankle" : "6",
+    "ankle-foot" : "7"
+}

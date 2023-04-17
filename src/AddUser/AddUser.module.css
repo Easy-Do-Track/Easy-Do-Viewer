@@ -1,0 +1,70 @@
+/* 모달창을 화면 중앙. 최상단에 노출 */
+.container {
+    /* 모달창 크기 */
+    width: 300px;
+    height: 200px;
+  
+    /* 최상단 위치 */
+    z-index: 999;
+
+    
+    /* 중앙 배치 */
+    /* top, bottom, left, right 는 브라우저 기준으로 작동한다. */
+    /* translate는 본인의 크기 기준으로 작동한다. */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    /* 모달창 디자인 */
+    background-color: rgb(215, 219, 202);
+    border: 1px solid black;
+    border-radius: 8px;
+
+
+  }
+  
+  /* 모달창 내부 X버튼 */
+  .close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
+
+  /* 모달창 내부 설명 텍스트 */
+  .modaltext {
+    /* 텍스트 위치*/
+    position: absolute;
+    left : 30px;
+    top : 20px;
+  }
+
+  /* 텍스트 입력창 */
+  .input {
+    width: 150px;
+    height: 30px;
+    text-align: center;
+    position: absolute;
+    top: 90px;
+    left: 75px;
+
+  }
+
+  /* 확인 버튼 */
+  .inputbtn {
+
+    width: 90px;
+    height: 30px;
+
+    flex: 1;
+    position: absolute;
+    bottom : 15px;
+    left: 105px;
+    text-align: center;
+
+  }
+  
+
+
+
+  
