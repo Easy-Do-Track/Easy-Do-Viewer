@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './Device.css';
 import { Link, useLocation } from "react-router-dom";
 import image from '../assets/a.png'
+import { Preview } from '../components/preview';
 
 
 const NavHead = (props) =>{
@@ -118,14 +119,7 @@ const CrudContainer = (props) =>{
 }
 
 const ImageContainer = () =>{
-    return(
-        <React.Fragment>
-            <div id = 'imagecontainer'>
-                <img src = {image} alt = 'status'></img>
-                
-            </div>
-        </React.Fragment>
-    )
+    return <Preview />
 }
 
 const Device = () =>{
