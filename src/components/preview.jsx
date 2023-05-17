@@ -1,7 +1,4 @@
 import { useState, useEffect } from "react"
-
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
 import MMDModel from "./MMDModel";
 
 export function Preview(){
@@ -32,13 +29,6 @@ export function Preview(){
         <pre>
             {data}
         </pre>
-        <Canvas>
-            <OrbitControls autoRotate={true}/>
-            <mesh>
-                <ambientLight />
-                <MMDModel />
-                <meshStandardMaterial color={0x8a2be2}/>
-            </mesh>
-        </Canvas>
+        <MMDModel />
     </div>
 }
