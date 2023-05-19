@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect} from 'react';
 import * as THREE from 'three';
 import { MMDLoader } from 'three/examples/jsm/loaders/MMDLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -8,19 +8,26 @@ import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import { default as Ammo } from 'ammo.js/builds/ammo';
 
-function MMDModel() {
+function MMDModel(props) {
   const containerRef = useRef();
+  let mesh = useRef();
 
-  let stats;
-
-  let camera, scene, renderer, effect;
-  let helper, ikHelper, physicsHelper;
-
-  const clock = new THREE.Clock();
+  useEffect(()=>{
+    if (mesh.current){
+      // 여기서 모델 본 조작
+      mesh.current.skeleton.bones[15].rotation.x = props.data;
+    }
+  }, [props.data])
 
   useEffect(() => {
     Ammo().then((AmmoLib) => {
       Ammo = AmmoLib;
+
+      let stats;
+
+      const clock = new THREE.Clock();
+      let camera, scene, renderer, effect;
+      let helper, ikHelper, physicsHelper;
 
       // 렌더러 크기
       const container = document.querySelector('.preview');
@@ -51,62 +58,41 @@ function MMDModel() {
       // 아웃라인
       effect = new OutlineEffect(renderer);
 
-      // 웹 성능 모니터링
-      stats = new Stats();
-      document.body.appendChild(stats.dom);
+        // 웹 성능 모니터링
+        stats = new Stats();
+      if (props.gui){
+        document.body.appendChild(stats.dom);
+      }
 
       helper = new MMDAnimationHelper( {
         afterglow: 2.0,
         physics: true,
-        ammo: Ammo,
       } );
-
-      let mesh;
 
       // MMD 로드
       const loader = new MMDLoader();
-      loader.loadWithAnimation(
-        'mmd/Model/Miku_Hatsune.pmd', // MMD 모델링
-        'mmd/Motion/OnegaiDarling.vmd', // MMD 모션
+      loader.load(
+        'mmd/Holo/Ame/Amelia Watson.pmx',
         (mmd) => {
-        mesh = mmd.mesh;
-        // scene.add(mmd.mesh);
-        scene.add(mesh);
+        mesh.current = mmd;
+        scene.add(mesh.current);
 
-        // helper.add(mmd.mesh, {
-        //   animation: mmd.animation
-        // });
-        helper.add(mesh, {
-          animation: mmd.animation
-        });
+        helper.add(mesh.current);
 
-        // ikHelper = helper.objects.get(mmd.mesh).ikSolver.createHelper();
-        ikHelper = helper.objects.get(mesh).ikSolver.createHelper();
+        ikHelper = helper.objects.get(mesh.current).ikSolver.createHelper();
         ikHelper.visible = false;
         scene.add(ikHelper);
 
-        // physicsHelper = helper.objects.get(mmd.mesh).physics.createHelper();
-        physicsHelper = helper.objects.get(mesh).physics.createHelper();
+        physicsHelper = helper.objects.get(mesh.current).physics.createHelper();
         physicsHelper.visible = false;
         scene.add(physicsHelper);
 
-        initGui();
-      });
-
-      // 사용자 입력 처리
-      document.addEventListener('keydown', event => {
-        if (event.key === 'ArrowUp') {
-          mesh.skeleton.bones[2].position.z -= 1;
-        } else if (event.key === 'ArrowDown') {
-          mesh.skeleton.bones[2].position.z += 1;
-        } else if (event.key === 'ArrowLeft') {
-          mesh.skeleton.bones[2].position.x -= 1;
-        } else if (event.key === 'ArrowRight') {
-          mesh.skeleton.bones[2].position.x += 1;
+        if (props.gui){
+          initGui();
         }
       });
 
-      // 체크박스 GUI 초기화
+            // 체크박스 GUI 초기화
       function initGui() {
         const api = {
           'animation': true,
@@ -142,14 +128,14 @@ function MMDModel() {
         gui.add(api, 'show rigid bodies').onChange(function() {
           if (physicsHelper !== undefined) physicsHelper.visible = api['show rigid bodies'];
         });
-
       }
+
 
       const animate = () => {
         requestAnimationFrame(animate);
         stats.begin();
         helper.update(clock.getDelta());
-        // renderer.render(scene, camera);
+        //renderer.render(scene, camera);
         effect.render(scene, camera);
         stats.end();
       };
@@ -157,7 +143,9 @@ function MMDModel() {
     });
   }, []);
 
-  return <div ref={containerRef} />;
+  return (
+    <div ref={containerRef} />
+  );
 }
 
 export default MMDModel;

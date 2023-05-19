@@ -4,6 +4,7 @@ import MMDModel from "./MMDModel";
 export function Preview(){
     const [data, setData] = useState(0);
     const [lastUpdate, setLastUpdate] = useState(0);
+    const [test, setTest] = useState(0.0);
 
     useEffect(()=>{
         // 여기서 webSocket 연결
@@ -29,6 +30,7 @@ export function Preview(){
         <pre>
             {data}
         </pre>
-        <MMDModel />
+        <button onClick={()=>{setTest(-3.14/2)}}>Click me!</button>
+        <MMDModel data={test} gui={true}/>
     </div>
 }
