@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import MMDModel from "./MMDModel";
 
 export function Preview(){
     const [data, setData] = useState(0);
@@ -28,5 +29,6 @@ export function Preview(){
         <pre>
             {data}
         </pre>
+        <MMDModel />
     </div>
 }
