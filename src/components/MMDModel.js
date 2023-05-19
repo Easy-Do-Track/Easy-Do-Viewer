@@ -61,27 +61,49 @@ function MMDModel() {
         ammo: Ammo,
       } );
 
+      let mesh;
+
       // MMD 로드
       const loader = new MMDLoader();
       loader.loadWithAnimation(
         'mmd/Model/Miku_Hatsune.pmd', // MMD 모델링
         'mmd/Motion/OnegaiDarling.vmd', // MMD 모션
         (mmd) => {
-        scene.add(mmd.mesh);
+        mesh = mmd.mesh;
+        // scene.add(mmd.mesh);
+        scene.add(mesh);
 
-        helper.add(mmd.mesh, {
+        // helper.add(mmd.mesh, {
+        //   animation: mmd.animation
+        // });
+        helper.add(mesh, {
           animation: mmd.animation
         });
 
-        ikHelper = helper.objects.get(mmd.mesh).ikSolver.createHelper();
+        // ikHelper = helper.objects.get(mmd.mesh).ikSolver.createHelper();
+        ikHelper = helper.objects.get(mesh).ikSolver.createHelper();
         ikHelper.visible = false;
         scene.add(ikHelper);
 
-        physicsHelper = helper.objects.get(mmd.mesh).physics.createHelper();
+        // physicsHelper = helper.objects.get(mmd.mesh).physics.createHelper();
+        physicsHelper = helper.objects.get(mesh).physics.createHelper();
         physicsHelper.visible = false;
         scene.add(physicsHelper);
 
         initGui();
+      });
+
+      // 사용자 입력 처리
+      document.addEventListener('keydown', event => {
+        if (event.key === 'ArrowUp') {
+          mesh.skeleton.bones[2].position.z -= 1;
+        } else if (event.key === 'ArrowDown') {
+          mesh.skeleton.bones[2].position.z += 1;
+        } else if (event.key === 'ArrowLeft') {
+          mesh.skeleton.bones[2].position.x -= 1;
+        } else if (event.key === 'ArrowRight') {
+          mesh.skeleton.bones[2].position.x += 1;
+        }
       });
 
       // 체크박스 GUI 초기화
