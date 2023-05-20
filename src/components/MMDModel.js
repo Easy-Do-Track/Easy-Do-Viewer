@@ -15,7 +15,17 @@ function MMDModel(props) {
   useEffect(()=>{
     if (mesh.current){
       // 여기서 모델 본 조작
-      mesh.current.skeleton.bones[15].rotation.x = props.data;
+
+      //mesh.current.skeleton.bones[15].rotation.x = props.data;
+      for (let name in props.data){
+        let bone = mesh.current.skeleton.bones.filter(v=>v.name==name);
+        if (bone.length > 0){
+          bone = bone[0];
+          bone.rotation.x = props.data[name].x;
+          bone.rotation.y = props.data[name].y;
+          bone.rotation.z = props.data[name].z;
+        }
+      }
     }
   }, [props.data])
 
@@ -72,7 +82,7 @@ function MMDModel(props) {
       // MMD 로드
       const loader = new MMDLoader();
       loader.load(
-        'mmd/Holo/Ame/Amelia Watson.pmx',
+        props.model,
         (mmd) => {
         mesh.current = mmd;
         scene.add(mesh.current);

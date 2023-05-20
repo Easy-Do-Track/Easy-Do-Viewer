@@ -4,7 +4,6 @@ import MMDModel from "./MMDModel";
 export function Preview(){
     const [data, setData] = useState(0);
     const [lastUpdate, setLastUpdate] = useState(0);
-    const [test, setTest] = useState(0.0);
 
     useEffect(()=>{
         // 여기서 webSocket 연결
@@ -26,11 +25,10 @@ export function Preview(){
     }, []);
 
     return <div className="preview">
+        <MMDModel data={JSON.parse(data)} gui={true} model="mmd/stick/stick.pmx"/>
         last update: {lastUpdate.toString()}
         <pre>
             {data}
         </pre>
-        <button onClick={()=>{setTest(-3.14/2)}}>Click me!</button>
-        <MMDModel data={test} gui={true}/>
     </div>
 }
