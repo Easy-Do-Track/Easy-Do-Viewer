@@ -25,10 +25,10 @@ export function Preview(){
     }, []);
 
     return <div className="preview">
+        <MMDModel data={JSON.parse(data)} gui={true} model="mmd/stick/stick.pmx"/>
         last update: {lastUpdate.toString()}
         <pre>
             {data}
         </pre>
-        <MMDModel />
     </div>
 }
