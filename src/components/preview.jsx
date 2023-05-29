@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react"
 import MMDModel from "./MMDModel";
 
-export function Preview(){
+export function Preview(props){
     const [data, setData] = useState(0);
     const [lastUpdate, setLastUpdate] = useState(0);
 
+    const [color, setColor] = useState(props.color);
+    const [avatar, setAvatar] = useState(props.avatar);
+
     useEffect(()=>{
+        setColor(color);
+        setAvatar(avatar);
+
         // 여기서 webSocket 연결
         let ws = new WebSocket("ws://localhost:8080/stream");
 
@@ -25,7 +31,8 @@ export function Preview(){
     }, []);
 
     return <div className="preview">
-        <MMDModel data={JSON.parse(data)} gui={true} model="mmd/stick/stick.pmx"/>
+        {/* <MMDModel data={JSON.parse(data)} gui={true} color={color} model="mmd/Model/Miku_Hatsune.pmd"/> */}
+        <MMDModel data={JSON.parse(data)} gui={true} color={color} model={avatar}/>
         last update: {lastUpdate.toString()}
         <pre>
             {data}

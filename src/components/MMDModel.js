@@ -53,7 +53,8 @@ function MMDModel(props) {
       containerRef.current.appendChild(renderer.domElement);
 
       // 배경색
-      scene.background = new THREE.Color(0xffffff);
+      // scene.background = new THREE.Color(0xffffff);
+      scene.background = new THREE.Color(props.color);
 
       // 마우스 제어
       const controls = new OrbitControls(camera, renderer.domElement);

@@ -1,0 +1,8 @@
+LAT Miku Hatsune model edit for MikuMikuDance. Model is in .PMX format only.
+
+Original MMD model by LAT
+Texture & Scaling edits by Chee-shep (deviantART)
+SPHs came from AceYoen's pack here: https://www.deviantart.com/aceyoen/art/MMD-Toon-Spa-Sph-Download-438139095
+
+Give credit to LAT for the original mode, credits to me for the edit would be greatly apriciated. 
+

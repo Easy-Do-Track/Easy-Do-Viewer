@@ -1,13 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { useState } from 'react';
 import './Device.css';
-import { Link, useLocation } from "react-router-dom";
-import image from '../assets/a.png'
+import { useLocation } from "react-router-dom";
 import { Preview } from '../components/preview';
-
+import { Status } from '../components/Status';
+import BgSetting from '../components/BgSetting';
+import AvtSetting from '../components/AvtSetting';
 
 const NavHead = (props) =>{
-
     return(
         <React.Fragment>
         <div id = "bar">
@@ -17,109 +16,29 @@ const NavHead = (props) =>{
         </div>
         </React.Fragment>
     )
-
 }
 
-const SettingContainer = (props) =>{
+const SettingContainer = () =>{
+    const [color, setColor] = useState("");
+    const [avatar, setAvatar] = useState("");
+
     return(
         <React.Fragment>
             <div id ='settingcontainer'>
-                <ImageContainer></ImageContainer>
+                <ImageContainer color={color} avatar={avatar} />
 
-                <AddressContainer name = {props.name}></AddressContainer>
-
+                <div style={{width: '33%'}}>
+                    <Status /><br />
+                    <AvtSetting setAvatar={setAvatar} /><br />
+                    <BgSetting setColor={setColor} />
+                </div>
             </div>
         </React.Fragment>
     )
-
 }
 
-const AddressContainer = (props) =>{
-
-    const userString = window.localStorage.getItem(props.name);
-    const userJson = JSON.parse(userString)
-    const addresslist = userJson.address;
-
-    const physicaladdress = Object.keys(addresslist).map((key) => (
-        <PhysicalAddress number = {key} address = {addresslist[key]} connect = "True"></PhysicalAddress>
-    )); 
-
-    console.log("adress",addresslist) 
-
-    return(
-        <React.Fragment>
-        <div className = 'addresscontainer'>
-            
-            {/* <PhysicalAddress number = "1" address = "ㅁㅁ-ㅁㅁ-ㅁㅁ-ㅁㅁ-ㅁ ㅁ" connect = "True"></PhysicalAddress>
-            <PhysicalAddress number = "2" address = "AA-bb-cc-dd-ee" connect = "True"></PhysicalAddress>
-            <PhysicalAddress number = "3" address = "AA-bb-cc-dd-ee" connect = "false"></PhysicalAddress>
-             */}
-            {physicaladdress}
-            <CrudContainer name = {props.name}></CrudContainer>
-
-
-        </div>
-    </React.Fragment>
-
-    )
-}
-
-const PhysicalAddress = (props) =>{
-    const connect = props.connect
-    const color = connect == "True" ? 'green' : 'red' 
-
-
-    return(
-        <div className='physicaladdress'>
-            <span style={{"background-color":color ,"color":"white"}}>{connect == "True"?'연결됨':'연결해제'}</span> 
-            <span>{props.number}</span> <input defaultValue={props.address}></input>    
-            <button id = "deletebutton">[삭제]</button>
-        </div>
-    )
-
-}
-
-const saveAdress = (name) =>{
-    
-    const inputs = document.querySelectorAll(".physicaladdress>input")
-
-    const addresses = [];
-    for(let i = 0;i<inputs.length;i++){
-        const input = inputs[i];
-        addresses.push(input.value);
-    }
-
-    const userString = window.localStorage.getItem(name);
-    const userJson = JSON.parse(userString);
-    const userAddress = userJson.address
-
-    userJson.address = addresses
-    const userStringForSet = JSON.stringify(userJson)
-    window.localStorage.setItem(name,userStringForSet)
-
-    const a = window.localStorage.getItem(name);
-    console.log("userstring",a)
-}
-
-const CrudContainer = (props) =>{
-    const data = {
-        name : props.name
-    };
-
-    return(
-        <React.Fragment>
-        <div id = "crudcontainer">
-            <button onClick={() => saveAdress(data.name)}>[저장]</button>
-            <Link to = '/Setting' state={{data}} ><button>[수동설정]</button></Link>
-            <button>[자동설정]</button>
-        </div>
-        </React.Fragment>
-    )
-
-}
-
-const ImageContainer = () =>{
-    return <Preview />
+const ImageContainer = (props) =>{
+    return <Preview color={props.color} avatar={props.avatar} />
 }
 
 const Device = () =>{
@@ -128,7 +47,7 @@ const Device = () =>{
     return(
         <React.Fragment>
             <NavHead name = {name}></NavHead>
-            <SettingContainer name = {name}></SettingContainer>
+            <SettingContainer />
         </React.Fragment>
     )
 
