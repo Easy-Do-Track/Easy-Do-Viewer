@@ -5,7 +5,6 @@ import { useState } from 'react';
 import AddUser from '../AddUser/AddUser'
 
 const saveJson = (name,addresslist,valuelist) => {
-
   let userObj = {};
 
   //default값 설정하는곳
@@ -67,8 +66,6 @@ const saveJson = (name,addresslist,valuelist) => {
     }
   }
 
-
-
   //check
   const userString = JSON.stringify(userObj);
   window.localStorage.setItem(name, userString);
@@ -78,13 +75,7 @@ const saveJson = (name,addresslist,valuelist) => {
 
   const userJson = JSON.parse(checkuser)
   //console.log("Json" ,userJson)
-
 }
-
-
-
-
-
 
 const NavHead = () =>{
   return(
@@ -125,22 +116,18 @@ const Profiles = (props) =>{
     
     temp.splice(idx, 1)
     setNames(temp)
-    
-
   };
-
-
 
   const profiles = names.map(
     (v,i) => (
       <div>
-    <Link to ='/Device' key={v} state ={{name:v}} style={{ textDecoration: "none" }}>
-      <Profile  addName = {addName} name ={v}></Profile>
-    </Link>
-    <button className="closebutton"  state ={{name:v}} onClick={()=> {deleteJson(i,v)}}>
-      X
-    </button></div>
-    
+        <Link to ='/Device' key={v} state ={{name:v}} style={{ textDecoration: "none" }}>
+          <Profile  addName = {addName} name ={v}></Profile>
+        </Link>
+        <button className="closebutton"  state ={{name:v}} onClick={()=> {deleteJson(i,v)}}>
+          X
+        </button>
+      </div>
     )
   )
   
@@ -157,10 +144,7 @@ const Profiles = (props) =>{
   )
 }
 
-
-
 const Profile = (props) =>{
-
   const [modalOpen, setModalOpen] = useState(false);
   const [hide, setHide] = useState(true);
   //const [closebtn, setbtn] = useState(false);
@@ -169,68 +153,22 @@ const Profile = (props) =>{
     setModalOpen(true);
   };
   
-
-
-    
-    return(
-      <React.Fragment>
-        <div className='profile' onClick={()=>showModal()} onMouseEnter={()=> setHide(false)} >{
-          props.name === "empty" 
-          ?  <h3 className="plusicon">+</h3>
-          :  <h3 className='profiletitle' >{props.name}</h3>
-        }      
-        </div>
-        {
-          props.name === "empty" ? modalOpen && <AddUser addName = {props.addName} ssetModalOpen={setModalOpen}/> : null
-        }
-      </React.Fragment>
-    )
-  }
-
-/*
-var ProfileChoice = () =>{
-
-  //확인용 data들 
-  //check saveJson method 사용법
-  const list = [20,20,20,20,20,44,20]
-  saveJson("이석희",list)
-
-  const list2 = [10,20,30,40,50,60,70]
-  saveJson("제로콜라",list2)
-  
-  saveJson("treesrt",'0')
   return(
     <React.Fragment>
-      <NavHead></NavHead>
-      <Profiles></Profiles>
+      <div className='profile' onClick={()=>showModal()} onMouseEnter={()=> setHide(false)} >{
+        props.name === "empty" 
+        ?  <h3 className="plusicon">+</h3>
+        :  <h3 className='profiletitle'>{props.name}</h3>
+      }      
+      </div>
+      {
+        props.name === "empty" ? modalOpen && <AddUser addName = {props.addName} ssetModalOpen={setModalOpen}/> : null
+      }
     </React.Fragment>
   )
 }
-export default ProfileChoice;
-*/
 
 const ProfileChoice = () =>{
-
-  //확인용 data들 
-  //check saveJson method 사용법
-  
-
-  /*
-  const list = [20,20,20,20,20,44,20]
-  const addresslist = ['aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa']
-  
-  const addresslist2 = ['aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa']
-  const list2 = [10,20,30,40,50,60,70]
-  
-  
-  if(window.localStorage.getItem('이석희')===null){
-    saveJson("이석희",addresslist,list)
-  }
-  if(window.localStorage.getItem('treeset')===null){
-    saveJson("treeset",'0','0')
-  }
-  */
-
   return(
     <React.Fragment>
       <NavHead></NavHead>

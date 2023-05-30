@@ -44,21 +44,22 @@ function MMDModel(props) {
       const style = getComputedStyle(container);
       const scrollbarWidth = container.offsetWidth - container.clientWidth - parseFloat(style.getPropertyValue('border-left-width')) - parseFloat(style.getPropertyValue('border-right-width'));
       const width = container.clientWidth - scrollbarWidth;
-      const height = width * 1.7;
+      const height = width * 1.0;
 
       scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(120, width/height, 0.1, 2000);
+      // camera = new THREE.PerspectiveCamera(120, width/height, 0.1, 2000);
+      camera = new THREE.OrthographicCamera();
       renderer = new THREE.WebGLRenderer();
       renderer.setSize(width, height);
-      containerRef.current.appendChild(renderer.domElement);
+      containerRef.current.replaceChildren(renderer.domElement);
 
       // 배경색
-      scene.background = new THREE.Color(0xffffff);
+      scene.background = new THREE.Color(props.color);
 
       // 마우스 제어
       const controls = new OrbitControls(camera, renderer.domElement);
-      camera.position.set(0, 15, 18);
-      controls.target.set(0, 15, 0);
+      camera.position.set(0, 10, 15);
+      controls.target.set(0, 10, 0);
       controls.update();
       
       // 주변광 추가
@@ -151,7 +152,7 @@ function MMDModel(props) {
       };
       animate();
     });
-  }, []);
+  }, [props.model, props.color]);
 
   return (
     <div ref={containerRef} />
