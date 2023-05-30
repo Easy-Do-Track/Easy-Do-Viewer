@@ -8,10 +8,14 @@ export function Preview(props){
     const [color, setColor] = useState(props.color);
     const [avatar, setAvatar] = useState(props.avatar);
 
-    useEffect(()=>{
-        setColor(color);
-        setAvatar(avatar);
+    useEffect(() => {
+        setColor(props.color);
+    }, [props.color]);
+    useEffect(() => {
+        setAvatar(props.avatar);
+    }, [props.avatar]);
 
+    useEffect(()=>{
         // 여기서 webSocket 연결
         let ws = new WebSocket("ws://localhost:8080/stream");
 

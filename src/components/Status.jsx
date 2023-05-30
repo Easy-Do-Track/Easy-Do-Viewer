@@ -6,25 +6,20 @@ export function Status(){
     const [sensors, setSensors] = useState([0]);
 
     useEffect(()=>{
-        // 여기서 webSocket 연결
-        let ws = new WebSocket("ws://localhost:8080/status");
-
-        ws.onmessage = (evt)=>{
-            const res = JSON.parse(evt.data);
-
-            setAddr(res.addr.toString());
-            setLastUpdate(res.last_update.toString());
-            setSensors(res.sensors);
+        async function fetchData() {
+            await fetch("http://localhost:8080/status")
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                setAddr(data.addr.toString());
+                setLastUpdate(data.last_update.toString());
+                setSensors(data.sensors);
+            }).catch((e) => {
+                console.log(e);
+            });
         }
-
-        return ()=>{
-            // 여기서 cleanup
-            if (!ws){
-                return;
-            }
-
-            ws.close();
-        };
+        fetchData();
     }, []);
 
     return <div className="status" style={{fontSize: '24px', height: 'auto'}}>
